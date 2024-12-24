@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kubernetes Dashboard</title>
+    <script>
+        async function listPods() {
+            const token = document.getElementById('token').value;
+            const response = await fetch('/list_pods', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ token }),
+            });
+
+            const result = await response.json();
+            const resultBox = document.getElementById('result');
+            if (response.ok) {
+                resultBox.innerHTML = `<pre>${JSON.stringify(result, null, 2)}</pre>`;
+            } else {
+                resultBox.innerHTML = `<pre style="color: red;">${JSON.stringify(result, null, 2)}</pre>`;
+            }
+        }
+    </script>
+    <script>
+        async function listDeploys() {
+            const token = document.getElementById('token').value;
+            const response = await fetch('/list_deployments', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ token }),
+            });
+
+            const result = await response.json();
+            const resultBox = document.getElementById('result');
+            if (response.ok) {
+                resultBox.innerHTML = `<pre>${JSON.stringify(result, null, 2)}</pre>`;
+            } else {
+                resultBox.innerHTML = `<pre style="color: red;">${JSON.stringify(result, null, 2)}</pre>`;
+            }
+        }
+    </script>
+    <script>
+        async function listServices() {
+            const token = document.getElementById('token').value;
+            const response = await fetch('/list_services', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ token }),
+            });
+
+            const result = await response.json();
+            const resultBox = document.getElementById('result');
+            if (response.ok) {
+                resultBox.innerHTML = `<pre>${JSON.stringify(result, null, 2)}</pre>`;
+            } else {
+                resultBox.innerHTML = `<pre style="color: red;">${JSON.stringify(result, null, 2)}</pre>`;
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Kubernetes Dashboard</h1>
+    <label for="token">Service Account Token:</label>
+    <br>
+    <textarea id="token" rows="5" cols="50"></textarea>
+    <br><br>
+    <button onclick="listPods()">List Pods</button>
+    <button onclick="listDeploys()">List Deployments</button>
+    <button onclick="listServices()">List Services</button>
+    <br><br>
+    <div id="result"></div>
+</body>
+</html>

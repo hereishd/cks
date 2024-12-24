@@ -1,0 +1,6 @@
+kadm@192.168.100.19
+kadm-w@192.168.100.20
+kadm-w2@192.168.100.24
+
+# ssh-keygen: Generates an SSH public/private key pair
+# ssh-copy-id user@remote_server: Copies the public key to the remote server

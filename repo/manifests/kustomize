@@ -1,0 +1,18 @@
+kustomize build --enable-helm --load-restrictor=LoadRestrictionsNone .
+| k apply -f -
+
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: namespace
+
+helmGlobals: 
+  chartHome: '../manifests'
+
+helmCharts:
+  - name: 'name'
+    releaseName: name
+    namespace: namespace
+    includeCRDs: true
+    # valuesInLine:
+# resources: -

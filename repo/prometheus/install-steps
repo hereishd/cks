@@ -1,0 +1,18 @@
+# Create a namespace for monitoring
+kubectl create namespace monitoring
+# Install the helm chart to local repo
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+# Install chart in created namespace
+helm install kube-prometheus-stack \
+--create-namespace \
+--namespace kube-prometheus-stack \
+prometheus-community/kube-prometheus-stack
+# Check the monitoring pods
+kubectl get pods -n monitoring
+# Expose the UI
+kubectl expose service prometheus-server --namespace monitoring --type=NodePort --target-port=9090 --name=prometheus-server-ext\
+
+
+# Install the kube-prometheus-stack
+## Install the repo
+

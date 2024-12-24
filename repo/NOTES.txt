@@ -1,0 +1,25 @@
+1. CIS Benchmarks (Center for Internet Security)
+
+For kubernetes, kube-bench is used to ensure that your cluster is built and supportes kubenetes best security practices.
+
+2. First Line of Defense - Secure the Kube-Apiserver
+
+- who can access the cluster?
+    files (username/password-username/token), certs, external providers (LDAP/Kerberos), service accounts
+- what can they do?
+    RBAC(role based),ABAC(attibute based), Node authorization, Webhooks
+
+All the components inside the cluster (kubeapi-server, kubelet, etcd kube-controller-manager, kube proxy, kube-scheduler)
+use tls (certificates) for encryption.
+By default, ALL PODS CAN ACCESS ALL PODS. Restrictions can be enforced using network policies.
+
+AUTHENTICATION: k8s does not manage user auth natively. In case of service accounts it can manage them (for machines).
+    All user access is managed by the kube-apiserver. 
+    Service accounts are used by machines ex. prometheus to interact with the kubeapi to pull out performance metrics, or/ by jenkins
+      to deploy applications on the cluster.
+      BUILD EX: application to retive the list of pods on the cluster. In order to query the apiserver we need
+                the app to be authenticated, fo that we use a service account.
+                create sa -> create rbac for sa -> use token
+                for in cluster hosted app, we can simply mount the token as secret volume
+                You can add a serviceAccountName to a pos but you will need to delete and recreate it.
+                To create a token for the sa: k create token [sa-name]
